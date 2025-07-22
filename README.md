@@ -1,24 +1,46 @@
+# **Jarvis – Python Voice Assistant**
 
-Welcome to my Python-Based Voice Assistant project!
+Jarvis is a simple yet powerful Python-based voice assistant designed to perform basic tasks using voice commands. It leverages speech recognition and text-to-speech technology to interact with users in real-time.
 
-This voice assistant is designed to interact with users through voice commands, utilizing Python’s speech recognition and text-to-speech libraries.
+---
 
-Features:
-Website Interaction: Open and search Google, YouTube, Instagram, and GitHub.
+## **Features**
+- **Website Interaction**
+  - Open popular websites like **Google**, **YouTube**, **Instagram**, and **GitHub**.
+  - Perform **Google searches** directly through voice commands.
+  
+- **Music Playback**
+  - Play predefined songs from a custom `musicLibrary.py` file.
 
-Music Playback: Play predefined songs from a custom list.
+- **Voice Command Recognition**
+  - Responds to the wake word **"Jarvis"** and executes specific commands.  
 
-Voice Commands: Respond to commands and perform various actions based on user input.
+- **Text-to-Speech Feedback**
+  - Uses `pyttsx3` for natural-sounding voice responses.
 
-Technologies Used
-Python: Core programming language.
-SpeechRecognition: For converting spoken language into text.
-pyttsx3: For text-to-speech conversion.
-Webbrowser: To handle website interactions.
+---
 
+## **Technologies Used**
+- **Python 3.x** – Core programming language.
+- **SpeechRecognition** – Converts speech to text.  
+- **pyttsx3** – Converts text to speech (offline).  
+- **Webbrowser** – Handles website interactions.  
+- **pocketsphinx (optional)** – For offline speech recognition.
 
-Follow the prompts and give voice commands to interact with the assistant.
+---
 
-Contributing:
+## **How It Works**
+1. Say **"Jarvis"** to activate the assistant.  
+2. Give a command like:
+   - `open google`
+   - `search in google Python tutorials`
+   - `play <song_name>`
+3. Jarvis processes the command and responds via voice.
 
-Feel free to open issues or submit pull requests to improve this project. Contributions are welcome!
+---
+
+## **Installation**
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/MousamCodes/voice_assistant_jarvis.git
+   cd voice_assistant_jarvis
