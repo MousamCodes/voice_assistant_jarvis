@@ -1,48 +1,77 @@
-# **Jarvis – Python Voice Assistant**
+# Jarvis Voice Assistant
 
-Jarvis is a simple yet powerful Python-based voice assistant designed to perform basic tasks using voice commands. It leverages speech recognition and text-to-speech technology to interact with users in real-time.
-
----
-
-## **Features**
-- **Website Interaction**
-  - Open popular websites like **Google**, **YouTube**, **Instagram**, and **GitHub**.
-  - Perform **Google searches** directly through voice commands.
-  
-- **Music Playback**
-  - Play predefined songs from a custom `musicLibrary.py` file.
-
-- **Voice Command Recognition**
-  - Responds to the wake word **"Jarvis"** and executes specific commands.  
-
-- **Text-to-Speech Feedback**
-  - Uses `pyttsx3` for natural-sounding voice responses.
+Jarvis is an **AI-powered Python voice assistant** that listens to your commands and performs tasks like opening websites, playing music, fetching live news, and answering general questions using OpenAI GPT.
 
 ---
 
-## **Technologies Used** 
- ![License](https://img.shields.io/badge/License-MIT-green) ![Python](https://img.shields.io/badge/Python-3.x-blue)
-- **Python 3.x** – Core programming language.
-- **SpeechRecognition** – Converts speech to text.  
-- **pyttsx3** – Converts text to speech (offline).  
-- **Webbrowser** – Handles website interactions.  
-- **pocketsphinx (optional)** – For offline speech recognition.
+## 🚀 Features
+- **Voice Activation:** Wake Jarvis with the keyword `Jarvis`.
+- **AI Chat Mode:** Uses OpenAI GPT (ChatGPT) for intelligent responses.
+- **Website Control:** Open popular websites like Google, YouTube, Facebook, and LinkedIn.
+- **Music Playback:** Play your favorite songs from a predefined music library.
+- **Real-Time News:** Fetch and read top headlines using [NewsAPI](https://newsapi.org/).
+- **Text-to-Speech:** Natural speech using `gTTS` (Google Text-to-Speech).
+- **Speech Recognition:** Powered by the `speech_recognition` library.
 
 ---
 
-## **How It Works**
-1. Say **"Jarvis"** to activate the assistant.  
-2. Give a command like:
-   - `open google`
-   - `search in google Python tutorials`
-   - `play <song_name>`
-3. Jarvis processes the command and responds via voice.
+## 🛠️ Technologies Used
+- **Python 3.x**
+- **SpeechRecognition** (Voice input)
+- **gTTS / pyttsx3** (Text-to-Speech)
+- **Webbrowser** (Website automation)
+- **OpenAI API** (AI-powered responses)
+- **NewsAPI** (Real-time headlines)
+- **Pygame** (MP3 playback)
 
 ---
 
+## 📂 Project Structure
+Jarvis/
+│
+├── main.py # Main script (entry point)
+├── musicLibrary.py # Dictionary of songs and links
+├── requirements.txt # Project dependencies
+└── README.md # Project documentation
 
-## **Installation**
-1. Clone the repository:
+
+---
+
+## ⚙️ Installation & Setup
+
+1. **Clone the repository**
    ```bash
-   git clone https://github.com/MousamCodes/voice_assistant_jarvis.git
-   cd voice_assistant_jarvis
+   git clone https://github.com/YourUsername/jarvis-voice-assistant.git
+   cd jarvis-voice-assistant
+   ```
+   ```bash
+    pip install -r requirements.txt
+   ```
+
+2. **Add API Keys**
+   
+   ```bash
+    newsapi = "<Your NewsAPI Key Here>"
+    client = OpenAI(api_key="<Your OpenAI API Key Here>")
+   ```
+3. **Run the Project**
+   
+   ``` 
+   python main.py
+   ```
+
+## 🧠 Example Commands
+
+- **"Jarvis, open Google"**
+- **"Jarvis, play despacito"**
+- **"Jarvis, what's the news?"**
+- **"Jarvis, who is Elon Musk?"** (AI response from GPT)
+
+
+## REQUIREMENTS
+- speechrecognition
+- pyttsx3
+- gTTS
+- pygame
+- requests
+- openai
