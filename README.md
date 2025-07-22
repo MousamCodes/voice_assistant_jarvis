@@ -21,7 +21,7 @@ Jarvis is a simple yet powerful Python-based voice assistant designed to perform
 ---
 
 ## **Technologies Used** 
- ![License](https://img.shields.io/badge/License-MIT-green)![License](https://img.shields.io/badge/License-MIT-green)
+ ![License](https://img.shields.io/badge/License-MIT-green) ![Python](https://img.shields.io/badge/Python-3.x-blue)
 - **Python 3.x** – Core programming language.
 - **SpeechRecognition** – Converts speech to text.  
 - **pyttsx3** – Converts text to speech (offline).  
