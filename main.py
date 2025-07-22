@@ -2,76 +2,115 @@ import speech_recognition as sr
 import webbrowser
 import pyttsx3
 import musicLibrary
-#pip install pocketsphinx
-recognizer = sr.Recognizer()
-engine = pyttsx3.init()
+import requests
+from openai import OpenAI
+from gtts import gTTS
+import pygame
+import os
 
-def speak (text):
+# pip install pocketsphinx
+
+recognizer = sr.Recognizer()
+engine = pyttsx3.init() 
+newsapi = "<Your Key Here>"
+
+def speak_old(text):
     engine.say(text)
     engine.runAndWait()
+
+def speak(text):
+    tts = gTTS(text)
+    tts.save('temp.mp3') 
+
+    # Initialize Pygame mixer
+    pygame.mixer.init()
+
+    # Load the MP3 file
+    pygame.mixer.music.load('temp.mp3')
+
+    # Play the MP3 file
+    pygame.mixer.music.play()
+
+    # Keep the program running until the music stops playing
+    while pygame.mixer.music.get_busy():
+        pygame.time.Clock().tick(10)
     
-def processCommand(command):
-    if "open google" in command.lower():
+    pygame.mixer.music.unload()
+    os.remove("temp.mp3") 
+
+def aiProcess(command):
+    client = OpenAI(api_key="<Your Key Here>",
+    )
+
+    completion = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "You are a virtual assistant named jarvis skilled in general tasks like Alexa and Google Cloud. Give short responses please"},
+        {"role": "user", "content": command}
+    ]
+    )
+
+    return completion.choices[0].message.content
+
+def processCommand(c):
+    if "open google" in c.lower():
         webbrowser.open("https://google.com")
-        speak("opening google")
-    elif "search in google" in command.lower():
-        search_query = command.replace("search in google","").strip() #remove space or newlines  # Extract the search query
-        webbrowser.open(f"https://www.google.com/search?q={search_query}")
-        speak(f"Searching for {search_query} in google")
-        
-    elif "open instagram" in command.lower():
-        webbrowser.open("https://instagram.com")
-        speak("opening instagram")
-        
-    elif "open youtube" in command.lower():
-        webbrowser.open("https://youtube.com") 
-    
-    elif "open github" in command.lower():
-        webbrowser.open("https://github.com")    
-        speak("opening nerd site")   
-     
-    elif command.lower(). startswith ("play"):
-        song = command.lower().split(" ")[1]
+    elif "open facebook" in c.lower():
+        webbrowser.open("https://facebook.com")
+    elif "open youtube" in c.lower():
+        webbrowser.open("https://youtube.com")
+    elif "open linkedin" in c.lower():
+        webbrowser.open("https://linkedin.com")
+    elif c.lower().startswith("play"):
+        song = c.lower().split(" ")[1]
         link = musicLibrary.music[song]
         webbrowser.open(link)
-   
-    
-    
-if __name__=="__main__":
-    speak("Initializing jarvis.... ")
+
+    elif "news" in c.lower():
+        r = requests.get(f"https://newsapi.org/v2/top-headlines?country=in&apiKey={newsapi}")
+        if r.status_code == 200:
+            # Parse the JSON response
+            data = r.json()
+            
+            # Extract the articles
+            articles = data.get('articles', [])
+            
+            # Print the headlines
+            for article in articles:
+                speak(article['title'])
+
+    else:
+        # Let OpenAI handle the request
+        output = aiProcess(c)
+        speak(output) 
+
+
+
+
+
+if __name__ == "__main__":
+    speak("Initializing Jarvis....")
     while True:
-     #listen for wake word "X"
-     #obtain audio from microphone
-        r=sr.Recognizer()
-        
+        # Listen for the wake word "Jarvis"
+        # obtain audio from the microphone
+        r = sr.Recognizer()
+         
         print("recognizing...")
-        # recognize speech using google
         try:
             with sr.Microphone() as source:
                 print("Listening...")
-                recognizer.adjust_for_ambient_noise(source)  # Adjust for background noise
-                audio = r.listen(source, timeout=3, phrase_time_limit=  3)
-                word = r.recognize_google(audio)
-                print(f"recognized word: {word} ")
-            
-            if(word.lower()=="jarvis"):
-                speak("Yes bro")
-                #listen command
+                audio = r.listen(source, timeout=2, phrase_time_limit=1)
+            word = r.recognize_google(audio)
+            if(word.lower() == "jarvis"):
+                speak("Ya")
+                # Listen for command
                 with sr.Microphone() as source:
-                    speak ("jarvis is active...")
-                    print("activated, listening for commands...")
-                    audio = r.listen(source, timeout=3, phrase_time_limit=3)
+                    print("Jarvis Active...")
+                    audio = r.listen(source)
                     command = r.recognize_google(audio)
-                    print(f"recognized command: {command}")
-                    
+
                     processCommand(command)
-            #recognize_google is a function works better than
-            # sphinx or cloud
-                
-                #error handling
-        except sr.UnknownValueError:
-            print("Could not understand the audio.")
-        except sr.RequestError as e:
-            print(f"Could not request results from Google Speech Recognition service; {e}")
+
+
         except Exception as e:
-            print(" error; {0}".format(e))
+            print("Error; {0}".format(e))
