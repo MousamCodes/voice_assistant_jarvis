@@ -1,4 +1,5 @@
-# Jarvis Voice Assistant
+# 🤖 Jarvis Voice Assistant
+
 
 Jarvis is an **AI-powered Python voice assistant** that listens to your commands and performs tasks like opening websites, playing music, fetching live news, and answering general questions using OpenAI GPT.
 
